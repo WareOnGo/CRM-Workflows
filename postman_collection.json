@@ -1,0 +1,244 @@
+{
+  "info": {
+    "name": "Email Webhook Automation API",
+    "description": "Collection for testing the Email Webhook Automation API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Success Cases",
+      "item": [
+        {
+          "name": "Send Email - Single Recipient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"recipient@example.com\",\n  \"subject\": \"Single Recipient Test\",\n  \"message\": \"This is a test email sent to a single recipient.\",\n  \"from_name\": \"reply@yourcompany.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test sending an email to a single recipient with all fields including optional from_name"
+          },
+          "response": []
+        },
+        {
+          "name": "Send Email - Multiple Recipients",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": [\"recipient1@example.com\", \"recipient2@example.com\", \"recipient3@example.com\"],\n  \"subject\": \"Multiple Recipients Test\",\n  \"message\": \"This email is being sent to multiple recipients simultaneously.\",\n  \"from_name\": \"reply@yourcompany.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test sending an email to multiple recipients in a single request"
+          },
+          "response": []
+        },
+        {
+          "name": "Send Email - Without Optional from_name",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"recipient@example.com\",\n  \"subject\": \"Test Without From Name\",\n  \"message\": \"This email does not include a from_name field.\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test that emails can be sent without the optional from_name field"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Validation Error Cases (400)",
+      "item": [
+        {
+          "name": "Missing 'to' Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"Test Subject\",\n  \"message\": \"Test message without recipient\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test validation error when 'to' field is missing"
+          },
+          "response": []
+        },
+        {
+          "name": "Missing 'subject' Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"recipient@example.com\",\n  \"message\": \"Test message without subject\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test validation error when 'subject' field is missing"
+          },
+          "response": []
+        },
+        {
+          "name": "Missing 'message' Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"recipient@example.com\",\n  \"subject\": \"Test Subject\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test validation error when 'message' field is missing"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Email Format - Single",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"invalid-email-format\",\n  \"subject\": \"Test Subject\",\n  \"message\": \"Test message with invalid email\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test validation error for invalid email format"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Email Format - In Array",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": [\"valid@example.com\", \"invalid-email\", \"another@example.com\"],\n  \"subject\": \"Test Subject\",\n  \"message\": \"Test message with one invalid email in array\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test validation error when one email in array is invalid"
+          },
+          "response": []
+        },
+        {
+          "name": "Empty Recipients Array",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": [],\n  \"subject\": \"Test Subject\",\n  \"message\": \"Test message with empty recipients\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/send-email",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "send-email"]
+            },
+            "description": "Test validation error when recipients array is empty"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

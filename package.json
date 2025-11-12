@@ -1,0 +1,23 @@
+{
+  "name": "email-webhook-automation",
+  "version": "1.0.0",
+  "description": "Node.js webhook server for email automation using EmailJS",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": [
+    "webhook",
+    "email",
+    "emailjs",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "@emailjs/nodejs": "^4.0.1",
+    "dotenv": "^16.3.1"
+  }
+}
